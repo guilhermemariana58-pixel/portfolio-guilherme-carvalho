@@ -1,0 +1,83 @@
+import { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, PerspectiveCamera, ContactShadows, Environment } from '@react-three/drei'
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+
+function LaptopModel({ mousePosition, scrollProgress }) {
+  const laptopRef = useRef()
+  const screenRef = useRef()
+
+  useFrame((state, delta) => {
+    if (laptopRef.current) {
+      const targetRotationY = mousePosition.current.x * 0.3
+      const targetRotationX = mousePosition.current.y * 0.1
+
+      laptopRef.current.rotation.y += (targetRotationY - laptopRef.current.rotation.y) * 0.05
+      laptopRef.current.rotation.x += (targetRotationX - laptopRef.current.rotation.x) * 0.05
+
+      laptopRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
+    }
+
+    if (screenRef.current) {
+      const targetScale = 1 + scrollProgress.current * 2
+      screenRef.current.scale.setScalar(targetScale)
+    }
+  })
+
+  return (
+    <group ref={laptopRef} position={[0, -0.2, 0]}>
+      <group ref={screenRef}>
+        <mesh position={[0, 0.8, 0]} rotation={[0, 0, 0]}>
+          <boxGeometry args={[2.4, 1.5, 0.08]} />
+          <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.2} />
+        </mesh>
+
+        <mesh position={[0, 0.8, 0.05]}>
+          <planeGeometry args={[2.2, 1.3]} />
+          <meshStandardMaterial color="#0a0a0a" emissive="#1e3a8a" emissiveIntensity={0.3} />
+        </mesh>
+
+        <mesh position={[1.2, 0.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
+          <boxGeometry args={[1.5, 0.05, 0.08]} />
+          <meshStandardMaterial color="#222222" metalness={0.8} roughness={0.3} />
+        </mesh>
+
+        <mesh position={[0, 0.15, 0.1]} rotation={[-Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.15, 0.15, 0.05, 32]} />
+          <meshStandardMaterial color="#333333" metalness={0.9} roughness={0.2} />
+        </mesh>
+
+        <mesh position={[0, 0.12, 0.5]}>
+          <boxGeometry args={[0.6, 0.02, 0.4]} />
+          <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.3} />
+        </mesh>
+      </group>
+    </group>
+  )
+}
+
+export default function LaptopScene({ mousePosition, scrollProgress }) {
+  return (
+    <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+      <PerspectiveCamera makeDefault position={[0, 1, 5]} fov={50} />
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 3}
+      />
+
+      <ambientLight intensity={0.4} />
+      <spotLight position={[5, 5, 5]} angle={0.5} penumbra={1} intensity={1.5} />
+      <pointLight position={[-5, 5, -5]} intensity={0.5} color="#3b82f6" />
+      <pointLight position={[5, -5, 5]} intensity={0.3} color="#8b5cf6" />
+
+      <Suspense fallback={null}>
+        <LaptopModel mousePosition={mousePosition} scrollProgress={scrollProgress} />
+        <ContactShadows position={[0, -0.5, 0]} opacity={0.5} scale={10} blur={2} far={4} />
+        <Environment preset="city" />
+      </Suspense>
+    </Canvas>
+  )
+}

@@ -1,0 +1,17 @@
+import { Suspense } from 'react'
+import { Navbar, Footer } from './components/layout/Footer'
+import Hero from './sections/Hero'
+import Projects from './sections/Projects'
+import Services from './sections/Services'
+import Process from './sections/Process'
+import Impact from './sections/Impact'
+import Contact from './sections/Contact'
+import { CustomCursor, ScrollIndicator } from './components/ui/CustomCursor'
+
+export default function App() {
+  return (
+    <div style={{ position: 'fixed', top: 20, left: 20, zIndex: 999999, color: 'red', background: 'white', padding: '20px' }}>
+      REACT ESTÁ RENDERIZANDO
+    </div>
+  )
+}
