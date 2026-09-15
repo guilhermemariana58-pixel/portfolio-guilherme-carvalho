@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Navbar } from './components/layout/Footer'
+import { Navbar, Footer } from './components/layout/Footer'
 import Hero from './sections/Hero'
 import Projects from './sections/Projects'
 import Services from './sections/Services'
@@ -22,6 +22,8 @@ export default function App() {
         <Impact />
         <Contact />
       </main>
+
+      <Footer />
     </div>
   )
 }
