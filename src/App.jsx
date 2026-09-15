@@ -4,6 +4,7 @@ import Hero from './sections/Hero'
 import Projects from './sections/Projects'
 import Services from './sections/Services'
 import Process from './sections/Process'
+import Impact from './sections/Impact'
 import { CustomCursor } from './components/ui/CustomCursor'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Projects />
         <Services />
         <Process />
+        <Impact />
       </main>
     </div>
   )
