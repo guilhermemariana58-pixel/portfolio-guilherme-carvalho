@@ -3,6 +3,7 @@ import { Navbar } from './components/layout/Footer'
 import Hero from './sections/Hero'
 import Projects from './sections/Projects'
 import Services from './sections/Services'
+import Process from './sections/Process'
 import { CustomCursor } from './components/ui/CustomCursor'
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Hero />
         <Projects />
         <Services />
+        <Process />
       </main>
     </div>
   )
