@@ -5,6 +5,7 @@ import Projects from './sections/Projects'
 import Services from './sections/Services'
 import Process from './sections/Process'
 import Impact from './sections/Impact'
+import Contact from './sections/Contact'
 import { CustomCursor } from './components/ui/CustomCursor'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Services />
         <Process />
         <Impact />
+        <Contact />
       </main>
     </div>
   )
